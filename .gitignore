@@ -1,0 +1,5 @@
+node_modules/
+.env
+uptime-kuma-mcp.service
+uptime-kuma-mcp-auth.service
+uptime-kuma-mcp.conf

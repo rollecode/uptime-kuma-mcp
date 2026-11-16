@@ -1,0 +1,23 @@
+[Unit]
+Description=Uptime Kuma MCP server (local machine only)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=YOUR_USER
+WorkingDirectory=/home/YOUR_USER/Projects/uptime-kuma-mcp
+EnvironmentFile=/home/YOUR_USER/.config/uptime-kuma-mcp/env
+Environment=MCP_PUBLIC_URL=https://uptime-kuma-mcp.example.com
+ExecStart=/usr/bin/node /home/YOUR_USER/Projects/uptime-kuma-mcp/src/server.js \
+  --transport http --host 127.0.0.1 --port 8640
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=read-only
+# No IPAddressDeny: the server has to reach Uptime Kuma. Inbound is
+# already contained because it only listens on the local machine.
+
+[Install]
+WantedBy=multi-user.target

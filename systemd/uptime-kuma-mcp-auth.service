@@ -1,0 +1,35 @@
+[Unit]
+Description=Login and access control for the Uptime Kuma MCP
+After=network-online.target uptime-kuma-mcp.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=YOUR_USER
+WorkingDirectory=/home/YOUR_USER/Projects/uptime-kuma-mcp
+Environment=PORT=8642
+Environment=UPSTREAM=http://127.0.0.1:8640
+Environment=ISSUER=https://uptime-kuma-mcp.example.com
+Environment=APP_SLUG=uptime-kuma
+Environment="APP_NAME=Uptime Kuma"
+Environment=APP_FG=#0d1f15
+Environment=APP_MUTED=#5b7466
+Environment=APP_LINE=#cdeedb
+Environment=APP_BG=#f5fcf8
+Environment=APP_ACCENT=#5CDD8B
+Environment=APP_ON_ACCENT=#08230f
+Environment=APP_DARK_FG=#e8f8ef
+Environment=APP_DARK_MUTED=#86a393
+Environment=APP_DARK_LINE=#1b2a22
+Environment=APP_DARK_BG=#090c10
+Environment=APP_LOGO_WIDTH=40px
+ExecStart=/usr/bin/node /home/YOUR_USER/Projects/uptime-kuma-mcp/auth-server.js
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=false
+ReadWritePaths=/home/YOUR_USER/.config/uptime-kuma-mcp
+
+[Install]
+WantedBy=multi-user.target
